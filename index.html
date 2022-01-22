@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+    <title>Sistema de entregas</title>
+</head>
+<body>
+    <header>
+        <h1>Sistema de entregas</h1>
+        <h3>Insira os dados:</h3>
+    </header>
+    <div id="andamento">
+        <span> Entrega em andamento: </span>
+    </div>
+    <div id="historico">
+        <span>Historico:</span>
+        <select id="selecthist">
+            <option selected value="0">selecione</option>
+            <option>Motoboy 1</option>
+            <option>Motoboy 2</option>
+        </select>
+    </div>
+    <div id="formulario">
+    <form action="#">
+        <fieldset>
+
+            <div class="campo">
+                <label class="placeholder" for="Motoboys">Selecione o entregador:</label>
+                <select class="input" name="Motoboys" id="motob">
+                    <option selected>Nenhum</option>
+                    <option>Motoboy 1</option>
+                    <option>Motoboy 2</option>
+                </select>
+                <br>
+                <p id="erro1" class="erro"></p>
+            </div>
+
+            <div class="campo">
+                <label class="placeholder" for="Lojas">Selecione a loja:</label>
+                <select class="input" name="Lojas" id="loja">
+                    <option selected>Nenhum</option>
+                    <option>Loja 1</option>
+                    <option>Loja 2</option>
+                    <option>Loja 3</option>
+                 </select>
+                 <br>
+                 <p id="erro2" class="erro"></p>
+            </div>  
+
+            <div class="campo">
+                <label class="placeholder" for="pedido">Quantidade de pedidos  min:1 max:4</label>
+                <input class="input" type="number" id="pedido" min="1" 
+                max="4">
+                <br>
+                <p id="erro3" class="erro"></p>
+            </div>
+
+                <button type="button" id="env">Enviar</button>
+        </fieldset>
+    </form>
+        <div class="confirm">
+            <p id="aviso"></p>
+        <br>
+            <p id="descr"></p>
+        </div>
+    </div>
+    
+</body>
+</html>
