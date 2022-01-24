@@ -1,30 +1,5 @@
 let botao =  document.getElementById("env")
 
-// Cadastra dados no localStorage
-function cadastrarEntraga(entregador, nomeloja, qntPedido){
-    let registro = {
-        'Loja 1':0,
-        'Loja 2':0,
-        'Loja 3':0
-    }
-    
-    
-    var ent = entregador
-    if(localStorage[entregador]){
-        let objeto = JSON.parse(localStorage[entregador])
-        Number(objeto[nomeloja])
-        objeto[nomeloja] += Number(qntPedido)
-
-        localStorage.setItem(entregador, JSON.stringify(objeto));
-    }else{
-        registro[nomeloja] = Number(qntPedido)
-        localStorage.setItem(entregador, JSON.stringify(registro));
-    }
-
-    
-
-    
-}
 
 // valida se os campos estão preenchidos corretamente
 function valide(campo1, campo2, campo3){
@@ -48,6 +23,11 @@ function valide(campo1, campo2, campo3){
         erro3.textContent = 'campo vazio'
         return false
 
+    }else if(campo3.value < 0 || 0 < campo3.value ){
+        erro2.textContent = ''
+        erro3.textContent = 'quantidade de pedidos invalida'
+        return false
+
     }else{
         erro1.textContent = ''
         erro2.textContent = ''
@@ -56,6 +36,34 @@ function valide(campo1, campo2, campo3){
 }
 
 }
+
+// Cadastra dados no sessionStorage
+function cadastrarEntraga(entregador, nomeloja, qntPedido){
+    let registro = {
+        'Loja 1':0,
+        'Loja 2':0,
+        'Loja 3':0
+    }
+    
+    
+    var ent = entregador
+    if(sessionStorage[entregador]){
+        let objeto = JSON.parse(sessionStorage[entregador])
+        Number(objeto[nomeloja])
+        objeto[nomeloja] += Number(qntPedido)
+
+        sessionStorage.setItem(entregador, JSON.stringify(objeto));
+    }else{
+        registro[nomeloja] = Number(qntPedido)
+        sessionStorage.setItem(entregador, JSON.stringify(registro));
+    }
+
+    
+
+    
+}
+
+
 
 let aviso = document.getElementById('aviso')
 let descr = document.getElementById('descr')
@@ -96,7 +104,7 @@ function cronometro(entregador, num, optionDesable){
 
         if(tempoEntrega == -1)
         {
-            localStorage.removeItem(`Time${entregador}`)
+            sessionStorage.removeItem(`Time${entregador}`)
             for(let i = 0;i < options.length; i++){
             options[i].classList.remove('desable')
             }
@@ -155,13 +163,25 @@ var selectHist = document.getElementById('selecthist')
 
 
 selectHist.addEventListener('change',()=>{
+
+let contentHist = document.getElementById('contenthist')
+contentHist.textContent = ''
+let titleHist = document.getElementById('titlehist')
+titleHist.textContent = ''
     
 let hist = document.getElementById('historico')
-if(localStorage[selectHist.value]){
-    let titleHist = document.createElement('h3')
-    let text = document.createTextNode(selectHist.value)
-    titleHist.appendChild(text)
-    hist.appendChild(titleHist)
+if(sessionStorage[selectHist.value]){
+    titleHist.textContent = selectHist.value+'\n'+'Pedidos' 
+    Object.keys(JSON.parse(sessionStorage[selectHist.value])).forEach((elt)=>{
+            let valueHist = JSON.parse(sessionStorage[selectHist.value])[elt] 
+            let pHist = document.createElement('p')
+            let textHist = document.createTextNode(elt + ' : ' + valueHist)
+            pHist.appendChild(textHist)
+
+            contentHist.appendChild(pHist)
+            
+
+    })
 }
 
 
